@@ -1,0 +1,57 @@
+Spaltenwerte auf Gleichheit prüfen und Filtern:
+SELECT name,vorname,festnetz,mobilnetz FROM mitarbeiter WHERE vorname=„Ute";
+
+SELECT name,vorname,plz FROM mitarbeiter Where plz=50000; 
+Spaltenwerte auf Ungleichheit prüfen
+SELECT name,vorname,steuerklasse,verheiratet FROM mitarbeiter WHERE verheiratet!="ja";
+SELECT name,vorname,steuerklasse,verheiratet FROM mitarbeiter WHERE steuerklasse<>"3"; 
+Spaltenwerte auf kleiner als/gleich prüfen
+SELECT name,vorname,eintrittsdatum FROM mitarbeiter WHERE eintrittsdatum<"1978-01-01";
+*Mitarbeiter deren Eintrittsdatum vor dem 01.01.1978 liegt
+
+SELECT name,vorname,eintrittsdatum FROM mitarbeiter WHERE eintrittsdatum<="1978-01-01";
+*Mitarbeiter deren Eintrittsdatum vor dem 01.01.1978 oder am 01.01.1978 liegt
+
+Spaltenwerte auf größer als/gleich prüfen
+SELECT name,vorname,bonus FROM mitarbeiter WHERE bonus>500;
+*Mitarbeiter die einen Bonus erhalten haben der größer als 500 ist
+
+SELECT name,vorname,eintrittsdatum FROM mitarbeiter WHERE eintrittsdatum>"1978-01-01";
+*Mitarbeiter deren Eintrittsdatum nach dem 01.01.1978 liegt
+
+Bedingung mit dem NOT-Operator verneinen
+SELECT name,vorname FROM mitarbeiter WHERE NOT name="Winter"; *Enthält sämtliche Datensätze der Tabelle bis auf die Mitarbeiterin Elise Winter
+SELECT name,vorname FROM mitarbeiter WHERE NOT name<>“Winter";
+*Die negierter Abfrage >name< ist nicht Winter (???) Holger fragen
+
+Spalten auf ein Intervall prüfen (BETWEEN)
+SELECT name,vorname,umsatz FROM mitarbeiter  WHERE umsatz BETWEEN 200000 AND 6000000; *Mitarbeiter deren Umsatz im Bereich von 200.000 bis 600.000 EURO liegen
+
+Spaltenwerte auf ein Muster prüfen (LIKE)
+SELECT name,vorname FROM mitarbeiter WHERE vorname LIKE "K%"; *Mitarbeiter deren Vorname mit K beginnt
+SELECT name,vorname FROM mitarbeiter WHERE vorname LIKE "%r"; *Mitarbeiter deren Vorname mit r endet
+
+Spaltenwerte auf Mengenzugehörigkeit prüfen
+SELECT * FROM mitarbeiter WHERE name IN ("Müller","Schneider","Eisenhof","Klarfeld","Schmidt","Funke","Klein"); *Ergebnis einer Zugehörigkeitsprüfung mit den Vergleichsoperatoren IN  SELECT name,vorname,abteilung FROM mitarbeiter  WHERE abteilung NOT IN ("personal","Vertrieb","Controlling","verkauf");
+*Prüfung mit einem NOT IN Vergleichsoperator
+
+Fehlende Spaltenwerte (NULL-Value)
+SELECT name, name=NULL, name="Klein" FROM mitarbeiter;
+*Ein Vergleich mit NULL
+
+SELECT NULL=NULL;
+*Zwei NULL Werte auf Gleichheit übprüfen
+
+Spaltenwerte auf NULL prüfen
+SELECT name,vorname,abteilung,umsatz FROM mitarbeiter  WHERE umsatz IS NULL;
+*Prüfung aller Mitarbeiter denen keine Vertriebs und Verkaufsaktivitäten zugeordnet sind
+
+Spaltenwerte auf >ist nicht NULL< prüfen
+SELECT name,vorname,abteilung,umsatz FROM mitarbeiter 
+WHERE umsatz IS NOT NULL;
+*Prüfung aller Mitarbeiter denen eine Vertriebs und Verkaufsaktivitäten zugeordnet sind 
+bzw. Umsatz erzielten.
+
+Spaltenwerte mit Spaltenwerte vergleichen
+SELECT name,vorname,umsatz,bonus FROM mitarbeiter WHERE bonus>umsatz;
+*Prüfung ob Mitarbeiter einen höheren Bonus als Umsatz erhalten haben
